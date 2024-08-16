@@ -25,7 +25,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, image, price }) => 
       <div className="absolute top-0 right-0 p-4">
         <button className="bg-blue-500 text-white p-2 rounded-full">🛒</button>
       </div>
-    </Link>
+      </Link>
+      
   );
 };
 

@@ -20,8 +20,8 @@ const ProductDetailPage = async ({ params }: { params: { id: string } }) => {
         alt={product.name}
         width={500}
         height={300}
-              className="w-full h-96 object-cover rounded-lg"
-              priority={true}
+        className="w-full h-96 object-cover rounded-lg"
+        priority={true}
       />
       <p className="text-lg font-bold">{product.price} грн</p>
       <div className="mt-4">

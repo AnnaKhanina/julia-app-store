@@ -7,7 +7,7 @@ const fetchProducts = async () => {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
     const products = await res.json();
-    console.log('Products fetched:', products);
+     console.log('Products fetched:', products);
     return products.filter((product: any) => product.name === 'Легінси');
   } catch (error) {
     console.error('Failed to fetch products:', error);

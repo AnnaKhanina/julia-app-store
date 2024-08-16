@@ -2,10 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Banner = () => {
-  const categories = [
-    // { name: 'Лосини', image: '/images/losiny.jpg', link: '/product/losiny' },
+  const categories = [    
     { name: 'Легінси', image: '/images/leginsy.jpg', link: '/product/leginsy' },
-    // { name: 'Шкарпетки', image: '/images/shkarpetky.jpg', link: '/product/shkarpetky' },
+    { name: 'Лосини', image: '/images/losiny.jpg', link: '/product/losiny' },
+    { name: 'Шкарпетки', image: '/images/shkarpetky.jpg', link: '/product/shkarpetky' },
   ];
 
   return (  
