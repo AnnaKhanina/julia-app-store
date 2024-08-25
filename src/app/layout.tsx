@@ -18,9 +18,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <h1 className="text-2xl font-bold">Магазин одягу</h1>
           </div>
         </header>
-        <main className="container mx-auto p-4">{children}
-          <ToastContainer />
-        </main>
+        <ToastContainer />
+        <main className="container mx-auto p-4">{children}</main>
       </body>
     </html>
   );
