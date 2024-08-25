@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AiOutlineShoppingCart } from 'react-icons/ai'; // Іконка кошика
+import Image from 'next/image';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface CartItem {
   id: string;
@@ -20,6 +23,7 @@ interface Product {
   description: string;
   size: string[];
   color: string[];
+  imageUrl: string;
 }
 
 const ProductDetailPage = () => {
@@ -34,6 +38,7 @@ const ProductDetailPage = () => {
     description: 'Опис товару...',
     size: ['S', 'M', 'L'],
     color: ['Чорний', 'Сірий', 'Синій'],
+    imageUrl: '/images/losiny.jpg',
   };
 
   const addToCart = (newItem: CartItem) => {
@@ -47,71 +52,94 @@ const ProductDetailPage = () => {
     );
 
     if (existingItemIndex >= 0) {
-      // Якщо товар вже є, збільшуємо його кількість
       storedCart[existingItemIndex].quantity += newItem.quantity;
     } else {
-      // Якщо товару немає, додаємо його до кошика
       storedCart.push(newItem);
     }
 
-    // Оновлюємо кошик у LocalStorage
     localStorage.setItem('cart', JSON.stringify(storedCart));
   };
 
   const handleAddToCart = () => {
+    if (!selectedSize || !selectedColor) {
+      toast.warn('Будь ласка, оберіть розмір та колір перед додаванням до кошика');
+      return;
+    }
+
     const cartItem = {
       id: product.id,
       name: product.name,
       price: product.price,
-      size: selectedSize || product.size[0],
-      color: selectedColor || product.color[0],
+      size: selectedSize,
+      color: selectedColor,
       quantity: 1,
     };
 
-    // Додаємо товар до кошика
     addToCart(cartItem);
-
-    // Перехід на сторінку кошика після додавання товару
     router.push('/cart');
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-      <p className="mb-4">{product.description}</p>
-      <div className="mb-4">
-        <h2 className="font-bold">Розмір:</h2>
-        <select onChange={(e) => setSelectedSize(e.target.value)}>
-          {product.size.map((size) => (
-            <option key={size} value={size}>
-              {size}
-            </option>
-          ))}
-        </select>
+    <div className="flex">
+      <div className="w-1/2">
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          width={500}
+          height={500}
+          className="object-cover"
+        />
+        {/* <img src="/path-to-your-image.jpg" alt={product.name} className="w-full" /> */}
       </div>
-      <div className="mb-4">
-        <h2 className="font-bold">Колір:</h2>
-        <select onChange={(e) => setSelectedColor(e.target.value)}>
-          {product.color.map((color) => (
-            <option key={color} value={color}>
-              {color}
-            </option>
-          ))}
-        </select>
+      <div className="w-1/2 p-4">
+        <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+        <p className="mb-4">{product.description}</p>
+        <div className="mb-4">
+          <h2 className="font-bold">Розмір:</h2>
+          <div className="flex space-x-2">
+            {product.size.map((size) => (
+              <button
+                key={size}
+                onClick={() => setSelectedSize(size)}
+                className={`p-2 border ${selectedSize === size ? 'border-black' : 'border-gray-300'}`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="mb-4">
+          <h2 className="font-bold">Колір:</h2>
+          <div className="flex space-x-2">
+            {product.color.map((color) => (
+              <button
+                key={color}
+                onClick={() => setSelectedColor(color)}
+                className={`p-2 border ${selectedColor === color ? 'border-black' : 'border-gray-300'}`}
+              >
+                {color}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center">
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded flex items-center"
+            onClick={handleAddToCart}
+          >
+            <AiOutlineShoppingCart className="mr-2" /> Додати до кошика
+          </button>
+        </div>
       </div>
-      <div className="flex items-center">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded flex items-center"
-          onClick={handleAddToCart}
-        >
-          <AiOutlineShoppingCart className="mr-2" /> Додати до кошика
-        </button>
-      </div>
+      <ToastContainer />
     </div>
   );
 };
 
 export default ProductDetailPage;
+
+
+
 
 
 
