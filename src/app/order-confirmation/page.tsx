@@ -68,12 +68,7 @@ const OrderConfirmationPage = () => {
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
-        {phoneError && <p className="text-red-500 mb-4">{phoneError}</p>}
-        {/* <p className="mb-2">Або увійдіть за допомогою:</p>
-        <div className="flex space-x-4">
-          <button className="bg-gray-200 p-2 rounded">Google</button>
-          <button className="bg-gray-200 p-2 rounded">Apple</button>
-        </div> */}
+        {phoneError && <p className="text-red-500 mb-4">{phoneError}</p>}       
       </div>
 
       {/* Права колонка */}

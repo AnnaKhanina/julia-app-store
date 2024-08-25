@@ -73,6 +73,7 @@ const ProductDetailPage = () => {
       size: selectedSize,
       color: selectedColor,
       quantity: 1,
+      imageUrl: '/images/losiny.jpg',
     };
 
     addToCart(cartItem);
