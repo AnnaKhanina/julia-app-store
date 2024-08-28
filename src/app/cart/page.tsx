@@ -44,6 +44,12 @@ const CartPage = () => {
   };
 
   const removeItem = (index: number) => {
+     if (cartItems.length === 1) {
+    const confirmClear = window.confirm('Ви впевнені, що хочете очистити кошик?');
+    if (!confirmClear) {
+      return; // If the user cancels, do nothing
+    }
+  }
     const updatedCart = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
